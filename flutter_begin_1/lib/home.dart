@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -90,10 +91,108 @@ class ContainerWithDecorationWidget extends StatelessWidget {
             ],
           ),
           child: const Center(
-            child: Text('Container'),
+            child: TheText(),
+            //child: TheRichText(),
           ),
         ),
       ],
+    );
+  }
+}
+
+class TheRichText extends StatelessWidget {
+  const TheRichText({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return RichText(
+      text: TextSpan(
+        //* ------------------------------------- Demo on TextSpan
+        text: 'TextSpan DEMO',
+        style: const TextStyle(
+            fontSize: 24.0,
+            color: Colors.deepPurple,
+            decoration: TextDecoration.underline,
+            decorationColor: Colors.deepPurpleAccent,
+            decorationStyle: TextDecorationStyle.dotted,
+            fontStyle: FontStyle.italic,
+            fontWeight: FontWeight.normal),
+        children: [
+          TextSpan(
+            text: ' for',
+            style: const TextStyle(
+              color: Colors.blue,
+              fontStyle: FontStyle.normal,
+              fontWeight: FontWeight.bold,
+            ),
+            recognizer: TapGestureRecognizer()
+              ..onTapUp = (_) => debugPrint('onTapUp'),
+            mouseCursor: SystemMouseCursors.click,
+            onEnter: (_) {
+              debugPrint('onEnter....');
+            },
+            onExit:
+                theOnExit, //* theOnExit--------------------------------widget call
+            // goto
+          ),
+          const TextSpan(
+            text: ' Mobile',
+            style: TextStyle(
+              color: Colors.deepOrange,
+              fontStyle: FontStyle.normal,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void theOnExit(_) {
+    //* theOnExit--------------------------------widget call
+    debugPrint('onEnter....');
+  }
+}
+
+class TheText extends StatelessWidget {
+  const TheText({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      //* ------------------------------------- Demo on Text
+      'Text DEMO',
+
+      style: TextStyle(
+        fontSize: 24.0,
+        color: Colors.deepPurple,
+        decoration: TextDecoration.combine(
+            [TextDecoration.underline, TextDecoration.lineThrough]),
+        decorationColor: Colors.deepPurpleAccent,
+        decorationStyle: TextDecorationStyle.dashed,
+        fontStyle: FontStyle.italic,
+        fontWeight: FontWeight.bold,
+      ),
+      strutStyle: const StrutStyle(
+        fontFamily: 'Roboto',
+        fontSize: 30,
+        height: 1.5,
+      ),
+      textAlign: TextAlign.justify,
+      textDirection: TextDirection.rtl,
+      softWrap: true,
+      overflow: TextOverflow.ellipsis,
+      textScaleFactor: 2.0,
+      maxLines: 4,
+      textWidthBasis: TextWidthBasis.parent,
+      textHeightBehavior: TextHeightBehavior(
+        applyHeightToFirstAscent: true,
+        applyHeightToLastDescent: true,
+      ),
     );
   }
 }
